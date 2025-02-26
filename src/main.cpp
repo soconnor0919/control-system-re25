@@ -35,9 +35,9 @@ void setup() {
   
   pinMode(triggerPin, INPUT_PULLUP);
   
-  // Wait for trigger pin to stabilize to HIGH
+  // Wait for trigger pin to stabilize to LOW
   delay(100);
-  if (digitalRead(triggerPin) == HIGH) {
+  if (digitalRead(triggerPin) == LOW) {
     triggerArmed = true;
     // Serial.println("Trigger armed and ready!");
   }
@@ -61,8 +61,8 @@ void loop() {
     lastTriggerDebug = millis();
   }
 
-  // Start timer when trigger is pulled (goes from HIGH to LOW) and take baseline
-  if (triggerArmed && !reactionComplete && digitalRead(triggerPin) == LOW && startTime == 0) {
+  // Start timer when trigger is released (goes from LOW to HIGH) and take baseline
+  if (triggerArmed && !reactionComplete && digitalRead(triggerPin) == HIGH && startTime == 0) {
     baselineValue = measurement;
     startTime = millis();
     Serial.println("Reaction started!");
